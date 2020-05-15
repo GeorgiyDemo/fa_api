@@ -29,24 +29,20 @@ class FaAPI:
     def __date_now(self) -> str:
         return datetime.now().strftime("%Y.%m.%d")
 
-    def __request(self, path: str, data: Dict[str, str]):
+
+    def __request(self, sub_url: str):
         """Запрос к РУЗ"""
 
-        r = requests.get(self.HOST + path, headers=self.headers, data=data)
+        r = requests.get(self.HOST + sub_url, headers=self.headers)
         if r.status_code == 200:
             return r.json()
         raise requests.exceptions.BaseHTTPError(
-            "[Ошибка] RUZ отдал код {}!\nURL: '{}'".format(r.status_code, self.HOST + path))
+            "[Ошибка] RUZ отдал код {}!\nURL: '{}'".format(r.status_code, self.base_url + sub_url))
 
     def search_group(self, group_name: str) -> List:
         """Поиск группы по ее названию"""
 
-        r = self.__request(
-            "/api/search",
-            data={
-                'term': group_name,
-                'type': 'group'
-            })
+        r = self.__request("/api/search?term={}&type=group".format(group_name))
         return r
 
     def timetable_group(self, group_id: str, date_begin: date = None, date_end: date = None) -> List:
@@ -56,24 +52,13 @@ class FaAPI:
             date_begin = self.__date_now()
             date_end = date_begin
 
-        r = self.__request(
-            f"/api/schedule/group/{group_id}",
-            data={
-                'start': date_begin,
-                'finish': date_end,
-                'lng': 1
-            })
+        r = self.__request("/api/schedule/group/{}?start={}&finish={}&lng=1".format(group_id, date_begin, date_end))
         return r
 
     def search_teacher(self, teacher_name: str) -> List:
         """Поиск преподавателя по его ФИО"""
 
-        r = self.__request(
-            "/api/search",
-            data={
-                'term': teacher_name,
-                'type': 'person'
-            })
+        r = self.__request("/api/search?term={}&type=person".format(teacher_name))
         return r
 
     def timetable_teacher(self, teacher_id: str, date_begin: date = None, date_end: date = None) -> List:
@@ -83,24 +68,13 @@ class FaAPI:
             date_begin = self.__date_now()
             date_end = date_begin
 
-        r = self.__request(
-            f"/api/schedule/person/{teacher_id}",
-            data={
-                'start': date_begin,
-                'finish': date_end,
-                'lng': 1
-            })
+        r = self.__request("/api/schedule/person/{}?start={}&finish={}&lng=1".format(teacher_id, date_begin, date_end))
         return r
 
     def search_auditorium(self, auditorium_name: str) -> List:
         """Поиск аудитории по её названию"""
 
-        r = self.__request(
-            "/api/search",
-            data={
-                'term': auditorium_name,
-                'type': 'auditorium'
-            })
+        r = self.__request("/api/search?term={}&type=auditorium".format(auditorium_name))
         return r
 
     def timetable_auditorium(self, auditorium_id: str, date_begin: date = None, date_end: date = None) -> List:
@@ -111,23 +85,13 @@ class FaAPI:
             date_end = date_begin
 
         r = self.__request(
-            f"/api/schedule/auditorium/{auditorium_id}",
-            data={
-                'start': date_begin,
-                'finish': date_end,
-                'lng': 1
-            })
+            "/api/schedule/auditorium/{}?start={}&finish={}&lng=1".format(auditorium_id, date_begin, date_end))
         return r
 
     def search_building(self, building_name: str) -> List:
         """Поиск здания по его названию"""
 
-        r = self.__request(
-            "/api/search",
-            data={
-                'term': building_name,
-                'type': 'building'
-            })
+        r = self.__request("/api/search?term={}&type=building".format(building_name))
         return r
 
     def timetable_building(self, building_id: str, date_begin: date = None, date_end: date = None) -> List:
@@ -137,11 +101,5 @@ class FaAPI:
             date_begin = self.__date_now()
             date_end = date_begin
 
-        r = self.__request(
-            f"/api/schedule/building/{building_id}",
-            data={
-                'start': date_begin,
-                'finish': date_end,
-                'lng': 1
-            })
+        r = self.__request("/api/schedule/building/{}?start={}&finish={}&lng=1".format(building_id, date_begin, date_end))
         return r
