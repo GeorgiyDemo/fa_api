@@ -1,8 +1,12 @@
 Простая библиотека с API для получения расписания с ruz.fa.ru
 
-## Установка с pip
+[![PyPi](https://img.shields.io/badge/PyPi-v0.1-orange)](https://pypi.org/project/fa-api/)
+[![Лицензия GPLv3](https://img.shields.io/badge/license-GPLv3-lightgrey.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
+
+
+## Установка
 ```
-pip3 install git+https://github.com/GeorgiyDemo/fa_api.git
+pip3 install fa_api
 ```
 
 ## Примеры 
