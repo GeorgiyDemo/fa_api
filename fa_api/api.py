@@ -1,13 +1,12 @@
-from datetime import datetime
-from typing import List, Dict
 from datetime import date
+from datetime import datetime
+from typing import List
 
 import requests
 from fake_headers import Headers
 
 
 class FaAPI:
-
     HOST = "https://ruz.fa.ru"
 
     def __init__(self):
@@ -28,7 +27,6 @@ class FaAPI:
 
     def __date_now(self) -> str:
         return datetime.now().strftime("%Y.%m.%d")
-
 
     def __request(self, sub_url: str):
         """Запрос к РУЗ"""
@@ -101,5 +99,6 @@ class FaAPI:
             date_begin = self.__date_now()
             date_end = date_begin
 
-        r = self.__request("/api/schedule/building/{}?start={}&finish={}&lng=1".format(building_id, date_begin, date_end))
+        r = self.__request(
+            "/api/schedule/building/{}?start={}&finish={}&lng=1".format(building_id, date_begin, date_end))
         return r
