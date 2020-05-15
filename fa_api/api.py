@@ -6,13 +6,15 @@ import requests
 from fake_headers import Headers
 
 
-class MetaHeaders(type):
-    def __init__(cls, name, bases, dct):
-        cls.headers = header_generator()
+class FaAPI:
+
+    HOST = "https://ruz.fa.ru"
+
+    def __init__(self):
+        self.header_generator()
 
     def header_generator(self):
         """Генерация header'ов"""
-        
         header = Headers()
         headers = header.generate()
         headers["Accept-Language"] = "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
@@ -22,15 +24,7 @@ class MetaHeaders(type):
         headers["Sec-Fetch-Site"] = "same-origin"
         headers["Sec-Fetch-Mode"] = "cors"
         headers["Sec-Fetch-Dest"] = "empty"
-        return headers
-
-
-class FaAPI(metaclass=MetaHeaders):
-
-    HOST = "https://ruz.fa.ru"
-
-    def __init__(self):
-        self.header_generator()
+        self.headers = headers
 
     def __date_now(self) -> str:
         return datetime.now().strftime("%Y.%m.%d")
