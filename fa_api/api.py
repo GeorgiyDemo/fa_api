@@ -3,27 +3,13 @@ from datetime import datetime
 from typing import List
 
 import requests
-from fake_headers import Headers
+import urllib3
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class FaAPI:
     HOST = "https://ruz.fa.ru"
-
-    def __init__(self):
-        self.header_generator()
-
-    def header_generator(self):
-        """Генерация header'ов"""
-        header = Headers()
-        headers = header.generate()
-        headers["Accept-Language"] = "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
-        headers["Accept"] = "application/json, text/plain, */*"
-        headers["Accept-Encoding"] = "gzip, deflate, br"
-        headers["Referer"] = "https://ruz.fa.ru/ruz/main"
-        headers["Sec-Fetch-Site"] = "same-origin"
-        headers["Sec-Fetch-Mode"] = "cors"
-        headers["Sec-Fetch-Dest"] = "empty"
-        self.headers = headers
 
     def __date_now(self) -> str:
         return datetime.now().strftime("%Y.%m.%d")
@@ -31,7 +17,7 @@ class FaAPI:
     def __request(self, sub_url: str):
         """Запрос к РУЗ"""
 
-        r = requests.get(self.HOST + sub_url, headers=self.headers)
+        r = requests.get(self.HOST + sub_url, verify=False)
         if r.status_code == 200:
             return r.json()
         raise requests.exceptions.BaseHTTPError(
