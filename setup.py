@@ -17,5 +17,5 @@ setup(
     packages=["fa_api"],
     long_description=long_description,
     long_description_content_type="text/markdown",
-    install_requires=["requests==2.23.0",],
+    install_requires=["requests>=2.23.0",],
 )
