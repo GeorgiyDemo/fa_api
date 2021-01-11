@@ -7,7 +7,7 @@ with open(path.join(curr_dir, "README.md"), encoding="utf-8") as f:
 
 setup(
     name="fa_api",
-    version="1.0",
+    version="1.0.1",
     author="Georgiy Demenchuk",
     author_email="demenchuk.george@protonmail.com",
     license="GPLv3",
