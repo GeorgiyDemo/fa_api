@@ -1,7 +1,7 @@
 # API расписания Финансового университета при Правительстве Российской Федерации
 Простая библиотека для получения расписания с ruz.fa.ru. Также может быть использована для работы с ruz.hse.ru
 
-[![PyPi](https://img.shields.io/badge/PyPi-v1.0-orange)](https://pypi.org/project/fa-api/)
+[![PyPi](https://img.shields.io/badge/PyPi-v1.0.1-orange)](https://pypi.org/project/fa-api/)
 [![Лицензия GPLv3](https://img.shields.io/badge/license-GPLv3-lightgrey.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
 
 
